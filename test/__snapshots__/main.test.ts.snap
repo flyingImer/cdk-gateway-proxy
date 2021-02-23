@@ -1,0 +1,609 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot 1`] = `
+Object {
+  "Outputs": Object {
+    "ProxyAPIEndpoint53B100C1": Object {
+      "Value": Object {
+        "Fn::Join": Array [
+          "",
+          Array [
+            "https://",
+            Object {
+              "Ref": "ProxyAPI66808E22",
+            },
+            ".execute-api.",
+            Object {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            Object {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/",
+            Object {
+              "Ref": "ProxyAPIDeploymentStagetest6DD63553",
+            },
+            "/",
+          ],
+        ],
+      },
+    },
+    "ProxyInvokeRoleARN": Object {
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "ProxyInvokeRole57B1C2C9",
+          "Arn",
+        ],
+      },
+    },
+  },
+  "Parameters": Object {
+    "AssetParametersb17cb5af827dea67da4a53b84689bf9cf6c81ef34b46841b6c338e6c98b8dabcArtifactHashFD82B0AD": Object {
+      "Description": "Artifact hash for asset \\"b17cb5af827dea67da4a53b84689bf9cf6c81ef34b46841b6c338e6c98b8dabc\\"",
+      "Type": "String",
+    },
+    "AssetParametersb17cb5af827dea67da4a53b84689bf9cf6c81ef34b46841b6c338e6c98b8dabcS3Bucket43E648E7": Object {
+      "Description": "S3 bucket for asset \\"b17cb5af827dea67da4a53b84689bf9cf6c81ef34b46841b6c338e6c98b8dabc\\"",
+      "Type": "String",
+    },
+    "AssetParametersb17cb5af827dea67da4a53b84689bf9cf6c81ef34b46841b6c338e6c98b8dabcS3VersionKeyC7E4AB16": Object {
+      "Description": "S3 key for asset version \\"b17cb5af827dea67da4a53b84689bf9cf6c81ef34b46841b6c338e6c98b8dabc\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "GatewayLogs64F6314F": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "RetentionInDays": 731,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "ProxyAPI66808E22": Object {
+      "Properties": Object {
+        "EndpointConfiguration": Object {
+          "Types": Array [
+            "REGIONAL",
+          ],
+        },
+        "Name": "ProxyAPI",
+      },
+      "Type": "AWS::ApiGateway::RestApi",
+    },
+    "ProxyAPIANY0844ECE7": Object {
+      "Properties": Object {
+        "AuthorizationType": "AWS_IAM",
+        "HttpMethod": "ANY",
+        "Integration": Object {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                Object {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "ProxyHandler3EC70835",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": Object {
+          "Fn::GetAtt": Array [
+            "ProxyAPI66808E22",
+            "RootResourceId",
+          ],
+        },
+        "RestApiId": Object {
+          "Ref": "ProxyAPI66808E22",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "ProxyAPIANYApiPermissionTesttestProxyAPI508518B7ANY9F519E6F": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "ProxyHandler3EC70835",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "ProxyAPI66808E22",
+              },
+              "/test-invoke-stage/*/",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "ProxyAPIANYApiPermissiontestProxyAPI508518B7ANY0F3073A1": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "ProxyHandler3EC70835",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "ProxyAPI66808E22",
+              },
+              "/",
+              Object {
+                "Ref": "ProxyAPIDeploymentStagetest6DD63553",
+              },
+              "/*/",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "ProxyAPIAccount884451ED": Object {
+      "DependsOn": Array [
+        "ProxyAPI66808E22",
+      ],
+      "Properties": Object {
+        "CloudWatchRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "ProxyAPICloudWatchRole9CF8224E",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ApiGateway::Account",
+    },
+    "ProxyAPICloudWatchRole9CF8224E": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "apigateway.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ProxyAPIDeployment5870DBBDf81a973a5eb5f0d050b95f1c7f2bc1a6": Object {
+      "DependsOn": Array [
+        "ProxyAPIproxyANYBB99C26B",
+        "ProxyAPIproxy3CE85FF9",
+        "ProxyAPIANY0844ECE7",
+      ],
+      "Properties": Object {
+        "Description": "Automatically created by the RestApi construct",
+        "RestApiId": Object {
+          "Ref": "ProxyAPI66808E22",
+        },
+      },
+      "Type": "AWS::ApiGateway::Deployment",
+    },
+    "ProxyAPIDeploymentStagetest6DD63553": Object {
+      "Properties": Object {
+        "AccessLogSetting": Object {
+          "DestinationArn": Object {
+            "Fn::GetAtt": Array [
+              "GatewayLogs64F6314F",
+              "Arn",
+            ],
+          },
+          "Format": "{\\"requestId\\":\\"$context.requestId\\",\\"ip\\":\\"$context.identity.sourceIp\\",\\"user\\":\\"$context.identity.user\\",\\"caller\\":\\"$context.identity.caller\\",\\"requestTime\\":\\"$context.requestTime\\",\\"httpMethod\\":\\"$context.httpMethod\\",\\"resourcePath\\":\\"$context.resourcePath\\",\\"status\\":\\"$context.status\\",\\"protocol\\":\\"$context.protocol\\",\\"responseLength\\":\\"$context.responseLength\\"}",
+        },
+        "DeploymentId": Object {
+          "Ref": "ProxyAPIDeployment5870DBBDf81a973a5eb5f0d050b95f1c7f2bc1a6",
+        },
+        "MethodSettings": Array [
+          Object {
+            "HttpMethod": "*",
+            "LoggingLevel": "INFO",
+            "MetricsEnabled": true,
+            "ResourcePath": "/*",
+          },
+        ],
+        "RestApiId": Object {
+          "Ref": "ProxyAPI66808E22",
+        },
+        "StageName": "test",
+      },
+      "Type": "AWS::ApiGateway::Stage",
+    },
+    "ProxyAPIproxy3CE85FF9": Object {
+      "Properties": Object {
+        "ParentId": Object {
+          "Fn::GetAtt": Array [
+            "ProxyAPI66808E22",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "{proxy+}",
+        "RestApiId": Object {
+          "Ref": "ProxyAPI66808E22",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "ProxyAPIproxyANYApiPermissionTesttestProxyAPI508518B7ANYproxyDD74A549": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "ProxyHandler3EC70835",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "ProxyAPI66808E22",
+              },
+              "/test-invoke-stage/*/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "ProxyAPIproxyANYApiPermissiontestProxyAPI508518B7ANYproxyA1D00191": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "ProxyHandler3EC70835",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "ProxyAPI66808E22",
+              },
+              "/",
+              Object {
+                "Ref": "ProxyAPIDeploymentStagetest6DD63553",
+              },
+              "/*/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "ProxyAPIproxyANYBB99C26B": Object {
+      "Properties": Object {
+        "AuthorizationType": "AWS_IAM",
+        "HttpMethod": "ANY",
+        "Integration": Object {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                Object {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "ProxyHandler3EC70835",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": Object {
+          "Ref": "ProxyAPIproxy3CE85FF9",
+        },
+        "RestApiId": Object {
+          "Ref": "ProxyAPI66808E22",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "ProxyHandler3EC70835": Object {
+      "DependsOn": Array [
+        "ProxyHandlerServiceRoleDefaultPolicy84454748",
+        "ProxyHandlerServiceRole216793A4",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersb17cb5af827dea67da4a53b84689bf9cf6c81ef34b46841b6c338e6c98b8dabcS3Bucket43E648E7",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersb17cb5af827dea67da4a53b84689bf9cf6c81ef34b46841b6c338e6c98b8dabcS3VersionKeyC7E4AB16",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersb17cb5af827dea67da4a53b84689bf9cf6c81ef34b46841b6c338e6c98b8dabcS3VersionKeyC7E4AB16",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "INVOKE_URL": "https://xxxxxxxx.execute-api.us-east-1.amazonaws.com/Beta",
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "ProxyHandlerServiceRole216793A4",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 30,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "ProxyHandlerServiceRole216793A4": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ProxyHandlerServiceRoleDefaultPolicy84454748": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "execute-api:Invoke",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":execute-api:us-east-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":xxxxxxxx/*/*/*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ProxyHandlerServiceRoleDefaultPolicy84454748",
+        "Roles": Array [
+          Object {
+            "Ref": "ProxyHandlerServiceRole216793A4",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "ProxyInvokeRole57B1C2C9": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": "arn:aws:iam::123456789012:role/aloha",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ProxyInvokeRoleDefaultPolicy7CEFF95C": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "execute-api:Invoke",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":execute-api:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "ProxyAPI66808E22",
+                    },
+                    "/*/*/*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ProxyInvokeRoleDefaultPolicy7CEFF95C",
+        "Roles": Array [
+          Object {
+            "Ref": "ProxyInvokeRole57B1C2C9",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+  },
+}
+`;

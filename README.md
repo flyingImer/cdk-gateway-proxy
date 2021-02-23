@@ -1,0 +1,1 @@
+### This app builds a simple API Gateway proxy to allow same account cross-region calls, which is useful for cases like the backend APIs cannot move to the desired region easily.
